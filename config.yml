@@ -1,0 +1,10 @@
+min_confidence: 0.6
+frame_skip: 3
+max_crowd_density: 0.75
+restricted_areas: []
+working_hours: [9, 17]
+db_config:
+  host: "localhost"
+  user: "root"
+  password: ""
+  database: "bytelocker"

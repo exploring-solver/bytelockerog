@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV Monitoring Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Include Chart.js from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Your app.js script -->
+    <script defer src="app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>CCTV Monitoring System</h1>
+        
+        <!-- People Count -->
+        <div class="card">
+            <h2>People Count</h2>
+            <p id="people-count">0</p>
+        </div>
+
+        <!-- Active Alerts -->
+        <div class="card">
+            <h2>Active Alerts</h2>
+            <p id="active-alerts">0</p>
+        </div>
+
+        <!-- Safety Violations -->
+        <div class="card">
+            <h2>Safety Violations</h2>
+            <p id="safety-violations">0</p>
+        </div>
+
+        <!-- Crowd Density Chart -->
+        <div class="card">
+            <h2>Crowd Density Over Time</h2>
+            <canvas id="crowd-density-chart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</body>
+</html>
