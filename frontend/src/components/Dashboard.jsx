@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@mui/material';
 import { Bell, Users, AlertTriangle, Camera } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import VideoFeed from './VideoFeed';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -114,11 +115,12 @@ const Dashboard = () => {
           </div>
           <CardContent>
             <div className="aspect-video bg-black rounded-lg overflow-hidden">
-              <img
+              {/* <img
                 src={videoFeed || "/api/placeholder/640/360"}
                 alt="CCTV Feed"
                 className="w-full h-full object-cover"
-              />
+              /> */}
+              <VideoFeed/>
             </div>
           </CardContent>
         </Card>
