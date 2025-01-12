@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import Footer from './Footer';
 
 const Layout = () => {
   const [darkMode, setDarkMode] = useState(true);
@@ -29,6 +30,7 @@ const Layout = () => {
           <Box component="main" sx={{ p: 3, mt: 8 }}>
             <Outlet />
           </Box>
+          <Footer />
         </Box>
       </Box>
     </ThemeProvider>

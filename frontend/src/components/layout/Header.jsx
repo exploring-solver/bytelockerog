@@ -28,7 +28,7 @@ import {
           </IconButton>
           
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            AI CCTV Monitoring System
+            AI CCTV Monitoring System - Bytelocker
           </Typography>
   
           <Box sx={{ display: 'flex' }}>
