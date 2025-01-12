@@ -38,47 +38,35 @@ class VideoStream:
         frame_count = 0
         consecutive_failures = 0
         
+        # Set camera buffer size
+        self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+        
         while self._running:
             try:
                 ret, frame = self.capture.read()
                 
                 if not ret:
                     consecutive_failures += 1
-                    logger.warning(f"Failed to capture frame from {self.source}")
-                    print(f"Failed to capture frame. Consecutive failures: {consecutive_failures}")
                     if consecutive_failures > 10:
-                        logger.error("Too many consecutive capture failures")
-                        print("Too many consecutive capture failures. Stopping capture.")
                         break
                     time.sleep(0.1)
                     continue
                     
                 consecutive_failures = 0
-                print(f"Captured frame {frame_count} from {self.source}.")
                 
+                # Only process every Nth frame
                 if frame_count % self.config.frame_skip == 0:
-                    # Preprocess frame
                     processed_frame = preprocess_frame(frame)
-                    print(f"Processed frame {frame_count}.")
-                    if processed_frame is not None:
-                        if not self.frame_queue.full():
-                            self.frame_queue.put(processed_frame)
-                            print(f"Frame {frame_count} added to queue.")
-                        else:
-                            # Clear oldest frame if queue is full
-                            try:
-                                self.frame_queue.get_nowait()
-                                print("Queue full. Oldest frame removed.")
-                            except queue.Empty:
-                                pass
-                            self.frame_queue.put(processed_frame)
-                            print(f"Frame {frame_count} added to queue.")
-                            
+                    if processed_frame is not None and not self.frame_queue.full():
+                        # Clear queue if full
+                        while self.frame_queue.full():
+                            self.frame_queue.get_nowait()
+                        self.frame_queue.put(processed_frame)
+                        
                 frame_count += 1
-                
+                    
             except Exception as e:
                 logger.error(f"Error in frame capture: {str(e)}")
-                print(f"Error in frame capture: {str(e)}")
                 time.sleep(0.1)
                 
     def stop(self):

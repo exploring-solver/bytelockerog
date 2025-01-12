@@ -12,6 +12,7 @@ class PersonDetector:
     def __init__(self, config: SystemConfig):
         try:
             print("Initializing YOLOv5 model...")
+            
             self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
             self.config = config
             self.known_face_encodings = {}

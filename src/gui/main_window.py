@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSizePolicy, QSplitter
 from PyQt5.QtCore import Qt
 from .camera_widget import CameraWidget
 from .analytics_widget import AnalyticsWidget
@@ -18,24 +18,23 @@ class MainWindow(QMainWindow):
         main_widget.setLayout(layout)
 
         # Left panel - Camera feeds
-        left_panel = QWidget()
-        left_layout = QVBoxLayout()
-        left_panel.setLayout(left_layout)
-        
         self.camera_widget = CameraWidget()
-        left_layout.addWidget(self.camera_widget)
+        self.camera_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         
         # Right panel - Analytics
-        right_panel = QWidget()
-        right_layout = QVBoxLayout()
-        right_panel.setLayout(right_layout)
-        
         self.analytics_widget = AnalyticsWidget()
-        right_layout.addWidget(self.analytics_widget)
+        self.analytics_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        # Add panels to main layout
-        layout.addWidget(left_panel, stretch=2)
-        layout.addWidget(right_panel, stretch=1)
+        # Add widgets to splitter for adjustable sizing
+        splitter = QSplitter(Qt.Horizontal)
+        splitter.addWidget(self.camera_widget)
+        splitter.addWidget(self.analytics_widget)
+        
+        # Set initial sizes (e.g., 60% camera, 40% analytics)
+        splitter.setSizes([int(self.width() * 0.6), int(self.width() * 0.4)])
+        
+        # Add splitter to layout
+        layout.addWidget(splitter)
     
     def set_cctv_system(self, cctv_system):
         self.cctv_system = cctv_system

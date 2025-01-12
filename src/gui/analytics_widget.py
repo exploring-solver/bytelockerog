@@ -107,7 +107,7 @@
 #         self.update_timer.stop()
 #         super().closeEvent(event)
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem, QGridLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem, QGridLayout, QSizePolicy
 from PyQt5.QtCore import Qt, QTimer
 import pyqtgraph as pg
 from datetime import datetime
@@ -115,8 +115,12 @@ from datetime import datetime
 class AnalyticsWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.layout = QGridLayout()
+        # Use QVBoxLayout for vertical stacking
+        self.layout = QVBoxLayout()
         self.setLayout(self.layout)
+        
+        # Set size policy for widget to be expandable
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         
         # Initialize data for graphs
         self.time_data = []
@@ -124,7 +128,8 @@ class AnalyticsWidget(QWidget):
         self.violation_data = []
         
         # Create analytics displays
-        self.setup_tables()  # Changed from setup_crowd_section()
+        self.setup_crowd_section()
+        self.setup_density_graph()
         self.setup_behavior_section()
         self.setup_safety_section()
         self.setup_alerts_section()
@@ -140,16 +145,22 @@ class AnalyticsWidget(QWidget):
     def set_cctv_system(self, cctv_system, camera_id='main_camera'):
         self.cctv_system = cctv_system
         self.camera_id = camera_id
-        self.setup_tables()
 
-    def setup_tables(self):
-        # Set up crowd analysis table
+    def setup_crowd_section(self):
+        # Crowd analysis section
         self.crowd_label = QLabel("Crowd Analysis")
-        self.crowd_label.setStyleSheet("font-size: 12pt; font-weight: bold;")
+        self.crowd_label.setStyleSheet("font-size: 12pt; font-weight: bold; padding: 5px;")
+        self.layout.addWidget(self.crowd_label)
+        
         self.crowd_table = QTableWidget()
+        self.crowd_table.setMinimumHeight(100)
+        self.crowd_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.crowd_table.setColumnCount(2)
         self.crowd_table.setHorizontalHeaderLabels(['Metric', 'Value'])
-        
+        self.crowd_table.horizontalHeader().setStretchLastSection(True)
+        self.layout.addWidget(self.crowd_table)
+
+    def setup_density_graph(self):
         # Crowd density graph
         self.density_graph = pg.PlotWidget()
         self.density_graph.setBackground('w')
@@ -157,41 +168,70 @@ class AnalyticsWidget(QWidget):
         self.density_graph.setLabel('left', 'Density')
         self.density_graph.setLabel('bottom', 'Time (s)')
         self.density_graph.showGrid(x=True, y=True)
+        self.density_graph.setMinimumHeight(200)
+        self.density_graph.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.density_curve = self.density_graph.plot(pen='b')
-        
-        self.layout.addWidget(self.crowd_label, 0, 0)
-        self.layout.addWidget(self.crowd_table, 1, 0)
-        self.layout.addWidget(self.density_graph, 2, 0)
+        self.layout.addWidget(self.density_graph)
 
     def setup_behavior_section(self):
+        # Behavior analysis section
         self.behavior_label = QLabel("Behavior Analysis")
-        self.behavior_label.setStyleSheet("font-size: 12pt; font-weight: bold;")
+        self.behavior_label.setStyleSheet("font-size: 12pt; font-weight: bold; padding: 5px;")
+        self.layout.addWidget(self.behavior_label)
+        
         self.behavior_table = QTableWidget()
+        self.behavior_table.setMinimumHeight(100)
+        self.behavior_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.behavior_table.setColumnCount(2)
         self.behavior_table.setHorizontalHeaderLabels(['Anomaly Type', 'Count'])
-        
-        self.layout.addWidget(self.behavior_label, 0, 1)
-        self.layout.addWidget(self.behavior_table, 1, 1)
+        self.behavior_table.horizontalHeader().setStretchLastSection(True)
+        self.layout.addWidget(self.behavior_table)
 
     def setup_safety_section(self):
+        # Safety monitoring section
         self.safety_label = QLabel("Safety Monitoring")
-        self.safety_label.setStyleSheet("font-size: 12pt; font-weight: bold;")
+        self.safety_label.setStyleSheet("font-size: 12pt; font-weight: bold; padding: 5px;")
+        self.layout.addWidget(self.safety_label)
+        
         self.safety_table = QTableWidget()
+        self.safety_table.setMinimumHeight(100)
+        self.safety_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.safety_table.setColumnCount(2)
         self.safety_table.setHorizontalHeaderLabels(['Violation Type', 'Count'])
-        
-        self.layout.addWidget(self.safety_label, 2, 1)
-        self.layout.addWidget(self.safety_table, 3, 1)
+        self.safety_table.horizontalHeader().setStretchLastSection(True)
+        self.layout.addWidget(self.safety_table)
 
     def setup_alerts_section(self):
+        # Recent alerts section
         self.alerts_label = QLabel("Recent Alerts")
-        self.alerts_label.setStyleSheet("font-size: 12pt; font-weight: bold;")
+        self.alerts_label.setStyleSheet("font-size: 12pt; font-weight: bold; padding: 5px;")
+        self.layout.addWidget(self.alerts_label)
+        
         self.alerts_table = QTableWidget()
+        self.alerts_table.setMinimumHeight(150)
+        self.alerts_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.alerts_table.setColumnCount(3)
         self.alerts_table.setHorizontalHeaderLabels(['Time', 'Type', 'Details'])
+        self.alerts_table.horizontalHeader().setStretchLastSection(True)
+        self.layout.addWidget(self.alerts_table)
+
+    def resizeEvent(self, event):
+        """Handle resize events to adjust table column widths"""
+        super().resizeEvent(event)
         
-        self.layout.addWidget(self.alerts_label, 4, 0, 1, 2)
-        self.layout.addWidget(self.alerts_table, 5, 0, 1, 2)
+        # Adjust table column widths
+        for table in [self.crowd_table, self.behavior_table, self.safety_table]:
+            width = table.width()
+            table.setColumnWidth(0, int(width * 0.4))
+            table.setColumnWidth(1, int(width * 0.6))
+        
+        # Adjust alerts table columns
+        width = self.alerts_table.width()
+        self.alerts_table.setColumnWidth(0, int(width * 0.2))  # Time
+        self.alerts_table.setColumnWidth(1, int(width * 0.3))  # Type
+        self.alerts_table.setColumnWidth(2, int(width * 0.5))  # Details
+        
+        
 
     def update_analytics(self):
         try:
