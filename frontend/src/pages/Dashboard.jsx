@@ -31,17 +31,17 @@ const Dashboard = () => {
 
         return () => clearInterval(interval);
     }, []);
-    useEffect(() => {
-        // WebSocket connection for real-time updates
-        const ws = new WebSocket('ws://your-backend-url/ws/metrics');
+    // useEffect(() => {
+    //     // WebSocket connection for real-time updates
+    //     const ws = new WebSocket('ws://your-backend-url/ws/metrics');
 
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            setMetrics(data);
-        };
+    //     ws.onmessage = (event) => {
+    //         const data = JSON.parse(event.data);
+    //         setMetrics(data);
+    //     };
 
-        return () => ws.close();
-    }, []);
+    //     return () => ws.close();
+    // }, []);
 
     return (
         <Box>
