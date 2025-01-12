@@ -1,4 +1,3 @@
-// src/components/dashboard/MetricsPanel.jsx
 import React from 'react';
 import { Card, CardContent, Typography, Box, Grid, LinearProgress } from '@mui/material';
 import { 

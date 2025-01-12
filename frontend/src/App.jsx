@@ -3,7 +3,7 @@ import Dashboard from './pages/Dashboard';
 import SecurityView from './pages/SecurityView';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
-import Layout from './components/Layout/Layout';
+import Layout from './components/layout/Layout';
 
 function App() {
   return (

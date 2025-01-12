@@ -1,4 +1,3 @@
-// src/pages/Analytics.jsx
 import React from 'react';
 import { Box, Typography, Grid, Paper } from '@mui/material';
 import DensityGraph from '../components/analytics/DensityGraph';

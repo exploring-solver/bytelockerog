@@ -1,4 +1,3 @@
-// src/components/layout/Layout.jsx
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';

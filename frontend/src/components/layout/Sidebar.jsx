@@ -1,4 +1,3 @@
-// src/components/layout/Sidebar.jsx
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import {
   Dashboard,

@@ -1,4 +1,3 @@
-// src/components/dashboard/AlertsPanel.jsx
 import React from 'react';
 import { 
   Card, 

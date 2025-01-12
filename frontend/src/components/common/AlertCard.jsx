@@ -1,4 +1,3 @@
-// src/components/common/AlertCard.jsx
 import { Card, CardContent, Typography, Box, Chip } from '@mui/material';
 import { Warning, Error, Info } from '@mui/icons-material';
 

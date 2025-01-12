@@ -1,4 +1,3 @@
-// src/components/common/MetricCard.jsx
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
 const MetricCard = ({ title, value, icon, color }) => {

@@ -1,4 +1,3 @@
-// src/components/layout/Footer.jsx
 import { Box, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 

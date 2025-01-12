@@ -1,4 +1,3 @@
-// src/components/analytics/ViolationChart.jsx
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
