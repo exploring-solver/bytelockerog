@@ -5,6 +5,7 @@ import {
   Analytics,
   Settings,
   ChevronLeft,
+  PanoramaFishEyeTwoTone,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ const Sidebar = ({ open, onClose }) => {
   const menuItems = [
     { text: 'Dashboard', icon: <Dashboard />, path: '/' },
     { text: 'Security', icon: <Security />, path: '/security' },
+    { text: 'Vision Language Model', icon: <PanoramaFishEyeTwoTone />, path: '/vlm' },
     { text: 'Analytics', icon: <Analytics />, path: '/analytics' },
     { text: 'Settings', icon: <Settings />, path: '/settings' },
   ];
