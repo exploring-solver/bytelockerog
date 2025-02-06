@@ -1,19 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-"use client";
+'use client';
 
-import { useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import React, { useState } from 'react';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export default function SettingsPage() {
   const [crowdManagementEnabled, setCrowdManagementEnabled] = useState(false);
@@ -23,10 +16,39 @@ export default function SettingsPage() {
   const [suspiciousActivitySensitivity, setSuspiciousActivitySensitivity] = useState(70);
   const [restrictedZones, setRestrictedZones] = useState(["Warehouse", "Vault Room"]);
   const [riskyBehaviors, setRiskyBehaviors] = useState(["No Helmet", "Unauthorized Equipment Use"]);
+  const [newZone, setNewZone] = useState('');
+  const [newBehavior, setNewBehavior] = useState('');
+
+  const handleAddZone = () => {
+    if (newZone.trim()) {
+      setRestrictedZones([...restrictedZones, newZone.trim()]);
+      setNewZone('');
+    }
+  };
+
+  const handleAddBehavior = () => {
+    if (newBehavior.trim()) {
+      setRiskyBehaviors([...riskyBehaviors, newBehavior.trim()]);
+      setNewBehavior('');
+    }
+  };
+
+  const handleSaveSettings = () => {
+    // Implement save logic here
+    console.log('Settings saved', {
+      crowdManagementEnabled,
+      crimePreventionEnabled,
+      workMonitoringEnabled,
+      alertThreshold,
+      suspiciousActivitySensitivity,
+      restrictedZones,
+      riskyBehaviors
+    });
+  };
 
   return (
-    <div className="container mx-auto p-6 space-y-6 w-full">
-      <h1 className="text-3xl font-bold text-center mb-6">CCTV AI/ML Settings</h1>
+    <div className="min-h-screen mx-auto p-6 space-y-6 w-full bg-gradient-to-r from-blue-600 to-indigo-800">
+      <h1 className="text-3xl font-bold text-center mb-6 text-white">CCTV AI/ML Settings</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Crowd Management Section */}
@@ -38,13 +60,22 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <Label htmlFor="crowd-management">Enable Crowd Management</Label>
-              <Switch id="crowd-management" checked={crowdManagementEnabled} onCheckedChange={setCrowdManagementEnabled} />
+              <Switch 
+                id="crowd-management" 
+                checked={crowdManagementEnabled} 
+                onCheckedChange={setCrowdManagementEnabled} 
+              />
             </div>
             {crowdManagementEnabled && (
               <div>
                 <Label className="mb-2">Overcrowding Alert Threshold:</Label>
-                <Slider defaultValue={[alertThreshold]} max={100} step={1} onValueChange={(value) => setAlertThreshold(value[0])} />
-                <p className="mt-2 text-sm text-gray-500">Threshold: {alertThreshold}%</p>
+                <Slider 
+                  defaultValue={[alertThreshold]} 
+                  max={100} 
+                  step={1} 
+                  onValueChange={(value) => setAlertThreshold(value[0])} 
+                />
+                <p className="mt-2 text-sm text-gray-300">Threshold: {alertThreshold}%</p>
               </div>
             )}
           </CardContent>
@@ -59,20 +90,37 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <Label htmlFor="crime-prevention">Enable Crime Prevention</Label>
-              <Switch id="crime-prevention" checked={crimePreventionEnabled} onCheckedChange={setCrimePreventionEnabled} />
+              <Switch 
+                id="crime-prevention" 
+                checked={crimePreventionEnabled} 
+                onCheckedChange={setCrimePreventionEnabled} 
+              />
             </div>
             {crimePreventionEnabled && (
               <>
                 <Label className="mb-2">Suspicious Activity Sensitivity:</Label>
-                <Slider defaultValue={[suspiciousActivitySensitivity]} max={100} step={1} onValueChange={(value) => setSuspiciousActivitySensitivity(value[0])} />
-                <p className="mt-2 text-sm text-gray-500">Sensitivity: {suspiciousActivitySensitivity}%</p>
+                <Slider 
+                  defaultValue={[suspiciousActivitySensitivity]} 
+                  max={100} 
+                  step={1} 
+                  onValueChange={(value) => setSuspiciousActivitySensitivity(value[0])} 
+                />
+                <p className="mt-2 text-sm text-gray-300">Sensitivity: {suspiciousActivitySensitivity}%</p>
 
                 <Label className="mt-4 mb-2">Restricted Zones:</Label>
                 <div className="space-y-2">
                   {restrictedZones.map((zone, index) => (
                     <p key={index} className="text-gray-700 bg-gray-200 rounded-md p-2">{zone}</p>
                   ))}
-                  <Input placeholder="Add New Zone" className="w-full" />
+                  <div className="flex space-x-2">
+                    <Input 
+                      placeholder="Add New Zone" 
+                      value={newZone}
+                      onChange={(e) => setNewZone(e.target.value)}
+                      className="w-full" 
+                    />
+                    <Button onClick={handleAddZone} variant="secondary">Add</Button>
+                  </div>
                 </div>
               </>
             )}
@@ -88,7 +136,11 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <Label htmlFor="work-monitoring">Enable Work Monitoring</Label>
-              <Switch id="work-monitoring" checked={workMonitoringEnabled} onCheckedChange={setWorkMonitoringEnabled} />
+              <Switch 
+                id="work-monitoring" 
+                checked={workMonitoringEnabled} 
+                onCheckedChange={setWorkMonitoringEnabled} 
+              />
             </div>
             {workMonitoringEnabled && (
               <>
@@ -97,7 +149,15 @@ export default function SettingsPage() {
                   {riskyBehaviors.map((behavior, index) => (
                     <p key={index} className="text-gray-700 bg-gray-200 rounded-md p-2">{behavior}</p>
                   ))}
-                  <Input placeholder="Add Behavior Rule" className="w-full" />
+                  <div className="flex space-x-2">
+                    <Input 
+                      placeholder="Add Behavior Rule" 
+                      value={newBehavior}
+                      onChange={(e) => setNewBehavior(e.target.value)}
+                      className="w-full" 
+                    />
+                    <Button onClick={handleAddBehavior} variant="secondary">Add</Button>
+                  </div>
                 </div>
               </>
             )}
@@ -107,7 +167,12 @@ export default function SettingsPage() {
 
       {/* Save Button */}
       <div className="text-center">
-        <Button className="px-6 py-3 text-lg">Save Settings</Button>
+        <Button 
+          onClick={handleSaveSettings}
+          className="px-6 py-3 text-lg bg-green-500 hover:bg-green-600"
+        >
+          Save Settings
+        </Button>
       </div>
     </div>
   );

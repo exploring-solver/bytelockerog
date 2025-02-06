@@ -33,7 +33,7 @@ export default function AboutUsPage() {
         <Card className="bg-gray-800 border-gray-700 shadow-lg">
           <CardContent className="p-6 flex flex-col items-center text-center">
             <Users size={48} className="text-blue-400 mb-4" />
-            <h3 className="text-xl font-bold">Crowd Management</h3>
+            <h3 className="text-xl font-bold text-white">Crowd Management</h3>
             <p className="text-gray-300 mt-2">
               AI-driven crowd detection to prevent overcrowding and ensure safety compliance.
             </p>
@@ -43,7 +43,7 @@ export default function AboutUsPage() {
         <Card className="bg-gray-800 border-gray-700 shadow-lg">
           <CardContent className="p-6 flex flex-col items-center text-center">
             <ShieldCheck size={48} className="text-green-400 mb-4" />
-            <h3 className="text-xl font-bold">Crime Prevention</h3>
+            <h3 className="text-xl font-bold text-white">Crime Prevention</h3>
             <p className="text-gray-300 mt-2">
               Automated anomaly detection to identify suspicious activities and prevent incidents.
             </p>
@@ -53,7 +53,7 @@ export default function AboutUsPage() {
         <Card className="bg-gray-800 border-gray-700 shadow-lg">
           <CardContent className="p-6 flex flex-col items-center text-center">
             <Eye size={48} className="text-yellow-400 mb-4" />
-            <h3 className="text-xl font-bold">Work Monitoring</h3>
+            <h3 className="text-xl font-bold text-white">Work Monitoring</h3>
             <p className="text-gray-300 mt-2">
               Ensuring safety and compliance at workplaces by detecting risky behaviors.
             </p>

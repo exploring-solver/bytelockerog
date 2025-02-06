@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
+
+import Navbar from "@/components/Nav";
+import Footer from "@/components/Foot";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,13 +24,9 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased `}
       >
-          <SidebarProvider>
-            <AppSidebar />
-              <main className="flex flex-col min-h-screen">
-              <SidebarTrigger />
+        <Navbar/>
               {children}
-            </main>
-          </SidebarProvider>
+        <Footer/>
       </body>
     </html>
   );

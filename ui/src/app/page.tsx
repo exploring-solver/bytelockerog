@@ -1,5 +1,6 @@
 
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -15,10 +16,10 @@ export default function HomePage() {
           </p>
           <div className="space-x-4">
             <Button className="border-cyan-400 hover:bg-cyan-400 hover:text-black">
-              Get Started
+              <Link href={''}>Get Started</Link>
             </Button>
             <Button className="border-cyan-400 hover:bg-cyan-400 hover:text-black">
-              Learn More
+              <Link href='aboutus'>Learn More</Link>
             </Button>
           </div>
         </div>
