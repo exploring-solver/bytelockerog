@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="py-20 px-8 bg-gradient-to-b from-black to-gray-900">
+      <section className="py-20 px-8 bg-gradient-to-r from-black to-gray-900">
         <div className="container mx-auto text-center">
           <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 mb-4">
             Revolutionize Surveillance with AI

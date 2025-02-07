@@ -22,6 +22,7 @@ const navItems = [
     category: 'Features',
     items: [
       { name: 'Image Analyzer', href: '/image-analysis' },
+      { name: 'Admin Dashboard', href: '/admin/dashboard' },
     ],
   },
   {
@@ -87,22 +88,12 @@ const Navbar: React.FC = () => {
     </DropdownMenu>
   );
 
-  const AuthButton: React.FC<{ href: string; onClick?: () => void; children: React.ReactNode }> = ({ href, onClick, children }) => (
-    <Link
-      href={href}
-      onClick={onClick}
-      className="px-4 py-2 text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-300 rounded"
-    >
-      {children}
-    </Link>
-  );
-
   const isNavCategory = (item: any): item is { category: string; items: any[] } => {
     return 'category' in item && 'items' in item;
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black shadow-md' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gradient-to-r from-black to-gray-900 shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <Link href="/" className="font-bold text-xl text-white">
