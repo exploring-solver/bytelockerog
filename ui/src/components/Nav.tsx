@@ -12,8 +12,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { useSession, signOut } from 'next-auth/react'; 
 import { useRouter } from 'next/navigation';
-
+import { useAuth } from '@/context/AuthContext';
 
 // Define navigation items with categories
 const navItems = [
@@ -38,8 +39,10 @@ const navItems = [
 const Navbar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const { loading } = useAuth(); 
+  const { data: session, status } = useSession();
   const router = useRouter();
-
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -61,6 +64,15 @@ const Navbar: React.FC = () => {
     setIsSidebarOpen(false);
   };
 
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    setTimeout(() => {
+      router.replace(`/`);
+      router.refresh();
+    }, 1000);
+  };
+
+
   const NavLink: React.FC<{ item: any; onClick?: () => void }> = ({ item, onClick }) => (
     <Link
       href={item.href}
@@ -68,6 +80,15 @@ const Navbar: React.FC = () => {
       onClick={onClick}
     >
       {item.name}
+    </Link>
+  );
+  const AuthButton: React.FC<{ href: string; onClick?: () => void; children: React.ReactNode }> = ({ href, onClick, children }) => (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="px-4 py-2 text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-300 rounded"
+    >
+      {children}
     </Link>
   );
 
@@ -107,6 +128,19 @@ const Navbar: React.FC = () => {
                 <NavLink key={index} item={item} />
               )
             ))}
+             {loading ? (
+              <span>Loading...</span>
+            ) : session ? (
+              <>
+                <AuthButton href="/">CCTV&apos;s DEN</AuthButton>
+                <AuthButton href="#" onClick={handleLogout}>Logout</AuthButton>
+              </>
+            ) : (
+              <>
+                <AuthButton href="/sign-in">Login</AuthButton>
+                <AuthButton href="/sign-up">Register</AuthButton>
+              </>
+            )}
             
           </div>
           
@@ -145,7 +179,19 @@ const Navbar: React.FC = () => {
                   <NavLink key={index} item={item} onClick={closeSidebar} />
                 )
               ))}
-              
+              {loading ? (
+                <span>Loading...</span>
+              ) : session ? (
+                <>
+                <AuthButton href="/">CCTV&apos;s DEN</AuthButton>
+                <AuthButton href="#" onClick={handleLogout}>Logout</AuthButton>
+                </>
+              ) : (
+                <>
+                <AuthButton href="/">CCTV&apos;s DEN</AuthButton>
+                  <AuthButton href="/sign-up">Register</AuthButton>
+                </>
+              )}
             </nav>
           </div>
         </div>
