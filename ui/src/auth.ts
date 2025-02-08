@@ -21,18 +21,14 @@ export const {
 
         try {
           await dbConnect();
-          
           const user = await UserSchema.findOne({
             email: credentials.email.toString()
           });
-
           if (!user) return null;
-
           const isPasswordValid = await compare(
             credentials.password.toString(),
             user.password
           );
-
           if (!isPasswordValid) return null;
 
           return {
