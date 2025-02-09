@@ -25,7 +25,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="flex flex-col px-8 py-24 space-y-6 bg-gray-900 min-h-screen text-white">
+    <div className="flex flex-col px-8 py-24 space-y-6 bg-gradient-to-r from-black to-gray-900 min-h-screen text-white">
       {/* Header Section */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">CCTV Monitoring Dashboard</h1>
@@ -52,21 +52,21 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="flex flex-wrap -mx-4">
         {/* Camera Grid Section */}
-        <div className="w-full lg:w-2/3 px-4">
+        <div className="w-full lg:w-1/2 px-4">
           <div className="bg-gray-800 p-4 rounded-lg shadow-md h-[70vh] overflow-y-auto">
             <CameraGrid viewMode={viewMode} />
           </div>
         </div>
 
         {/* Side Panels Section */}
-        <div className="w-full lg:w-1/3 px-4 space-y-4">
+        <div className="w-full lg:w-1/2 px-4 space-y-4">
           {/* Metrics Panel */}
-          <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+          <div className="bg-gray-800  rounded-lg shadow-md">
             <MetricsPanel metrics={metrics} />
           </div>
 
           {/* Alerts Panel */}
-          <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+          <div className="bg-gray-800  rounded-lg shadow-md">
             <AlertsPanel alerts={metrics.alerts} />
           </div>
         </div>

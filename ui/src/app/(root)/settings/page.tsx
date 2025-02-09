@@ -47,8 +47,8 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen mx-auto p-6 space-y-6 w-full bg-gradient-to-r from-blue-600 to-indigo-800">
-      <h1 className="text-3xl font-bold text-center mb-6 text-white">CCTV AI/ML Settings</h1>
+    <div className="min-h-screen mx-auto p-6 space-y-6 w-full bg-gradient-to-r from-black to-gray-900">
+      <h1 className="text-3xl font-bold text-center mb-6 pt-6 text-white">CCTV AI/ML Settings</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Crowd Management Section */}

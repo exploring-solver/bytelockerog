@@ -22,17 +22,7 @@ const initialCameras = [
       alerts: 2
     }
   },
-  {
-    id: 2,
-    name: 'Main Entrance',
-    location: 'Building A',
-    stream: '/mock-streams/camera1.mp4',
-    metrics: {
-      crowdDensity: 0.45,
-      personCount: 12,
-      alerts: 2
-    }
-  },
+  
 ];
 
 const CameraGrid = ({ viewMode }) => {
