@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['localhost'],
   },
+  experimental: {
+    serverComponentsExternalPackages: ['sharp']
+  }
 };
 
 export default nextConfig;

@@ -4,7 +4,6 @@ import { vl } from 'moondream';
 // Specify edge runtime
 export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
-
 export async function POST(req: NextRequest) {
   if (!process.env.MOONDREAM_API_KEY) {
     return NextResponse.json(
@@ -45,8 +44,11 @@ export async function POST(req: NextRequest) {
       question: question 
     });
 
+    // Convert the answer object to a string if it's not already
+    const analysisText = typeof answer === 'object' ? JSON.stringify(answer) : answer;
+
     return NextResponse.json({ 
-      analysis: answer 
+      analysis: analysisText 
     });
 
   } catch (error) {

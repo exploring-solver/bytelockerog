@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState } from 'react';
 import { Upload } from 'lucide-react';
@@ -36,13 +37,13 @@ const VLMInterface = () => {
   const [analysis, setAnalysis] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleImageSelect = (image) => {
+  const handleImageSelect = (image: React.SetStateAction<null>) => {
     setSelectedImage(image);
     setUploadedImage(null);
     setAnalysis("");
   };
 
-  const handleImageUpload = async (event) => {
+  const handleImageUpload = async (event: { target: { files: any[]; }; }) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -95,7 +96,10 @@ const VLMInterface = () => {
       }
 
       const data = await res.json();
-      setAnalysis(data.analysis || "No analysis available");
+      setAnalysis(typeof data.analysis === 'object' ? 
+        JSON.stringify(data.analysis, null, 2) : 
+        data.analysis || "No analysis available"
+      );
 
     } catch (error) {
       console.error(error);
@@ -178,7 +182,9 @@ const VLMInterface = () => {
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-2">Analysis Results</h2>
         {analysis ? (
-          <p className="bg-gray-800 p-4 rounded-lg">{analysis}</p>
+          <pre className="bg-gray-800 p-4 rounded-lg whitespace-pre-wrap">
+            {analysis}
+          </pre>
         ) : (
           <p>Select an image and enter a prompt to see analysis results</p>
         )}
