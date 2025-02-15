@@ -3,8 +3,8 @@
 A comprehensive AI-powered solution for integrating advanced analytics with existing CCTV infrastructure. ByteLocker enhances security monitoring through real-time detection, analysis, and intelligent alerts.
 
 ### Live Link
-- Dashboard: [https://bytelocker.netlify.app/](https://bytelockerog.vercel.app/)
-- VLM Implementation: [Click Here](https://bytelockerog.vercel.app/image-analysis)
+- Dashboard: [https://bytelockerog.vercel.app/](https://bytelockerog.vercel.app/)
+- VLM Implementation: [https://bytelockerog.vercel.app/image-analysis](https://bytelockerog.vercel.app/image-analysis)
 
 ## Core Features
 
