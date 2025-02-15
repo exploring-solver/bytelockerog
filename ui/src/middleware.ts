@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request,secret: process.env.AUTH_SECRET });
     const url = request.nextUrl;
     const publicRoutes = ['/', '/aboutus'];
-    const authRoutes = ['/admin/cctv-monitor', '/admin/dashboard'];
+    const authRoutes = ['/admin/cctv-monitor', '/admin/dashboard','/admin/image-analysis'];
 
     // Routes that should redirect to home if user is already authenticated
     const guestOnlyRoutes = ['/sign-in', '/sign-up'];
@@ -30,6 +30,7 @@ export const config = {
         '/sign-in',
         '/sign-up',
         '/admin/cctv-monitor',
-        '/admin/dashboard'
+        '/admin/dashboard',
+        '/admin/image-analysis',
     ],
 };

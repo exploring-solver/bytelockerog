@@ -8,14 +8,10 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb' // Set your preferred limit (up to 50mb)
-    }
-  },
+  
   
   images: {
-    domains: ['localhost'],
+    domains: ['localhost','avatars.githubusercontent.com'],
   },
   experimental: {
     serverComponentsExternalPackages: ['sharp']

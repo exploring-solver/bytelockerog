@@ -24,6 +24,7 @@ const navItems = [
     items: [
       { name: 'Image Analyzer', href: '/image-analysis' },
       { name: 'Admin Dashboard', href: '/admin/dashboard' },
+      { name: 'WorkForce Safety', href: '/workforce-safety' },
     ],
   },
   {
@@ -31,6 +32,8 @@ const navItems = [
     items: [
       { name: 'About Us', href: '/aboutus' },
       { name: 'Settings', href: '/settings' },
+      { name: 'Our Team', href: '/our-team' },
+      { name: 'Privacy & Policies', href: '/privacy-compliance' },
     ],
   },
   
